@@ -1,11 +1,30 @@
+import {Card} from "react-bootstrap";
+import {Section} from "./Section";
+import {MyCard} from "./MyCard";
 
-export function Notes(props){
-    const {title, text} = props;
+
+function Note(props){
+    const{note} = props;
 
     return(
-        <div>
-            <h4>{title}</h4>
-            <p>{text}</p>
-        </div>
+        <MyCard>
+            <Card.Title>{note.title}</Card.Title>
+            <Card.Text>{note.text}</Card.Text>
+            <Card.Link href="#">Edit</Card.Link>
+            <Card.Link href="#">Delete</Card.Link>
+        </MyCard>
+
+    )
+
+}
+
+
+export function Notes(props){
+    const {title, notes} = props;
+
+    return(
+            <Section title={title}>
+                {notes.map(n => <Note  key={n.id} note={n} />  )}
+            </Section>
     )
 }
