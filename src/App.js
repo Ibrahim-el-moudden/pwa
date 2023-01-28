@@ -4,6 +4,7 @@ import {Footer} from "./components/Footer";
 import {NotesPage} from "./pages/NotesPage";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {Tab, Tabs} from 'react-bootstrap';
+import "./services/firestore";
 
 
 function App() {
