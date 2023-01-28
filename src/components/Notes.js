@@ -6,7 +6,7 @@ function Note(props){
     const{note} = props;
     return(
         <MyCard>
-            <Card.Title>{note.title}</Card.Title>
+            <Card.Title>{note.title ? note.title : "No title"}</Card.Title>
             <Card.Text>{note.text}</Card.Text>
             <Card.Link href="#">Edit</Card.Link>
             <Card.Link href="#">Delete</Card.Link>
