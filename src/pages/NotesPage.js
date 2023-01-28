@@ -1,8 +1,14 @@
 import {Notes} from "../components/Notes";
+import {collection} from 'firebase/firestore';
+import {firestoreDB} from "../services/firestore";
+import {useCollectionData} from "react-firebase-hooks/firestore";
 
 export function NotesPage(){
+    const collectionRef = collection(firestoreDB, "notes");
+    const [values, loading, error] = useCollectionData(collectionRef);
+    console.log({values, loading, error});
 
     return(
-      <Notes title={"My notes"} notes={[{id:1, title:"note1", text:"dgdfgdfg"},{id:2, title:"note2", text:"dfgdf"}, {id:3, title:"note3", text:"dgdfgdfg"}  ]} />
+      <Notes title={"My notes"} notes={values} />
     )
 }

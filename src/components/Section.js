@@ -5,9 +5,9 @@ export function Section(props){
 
     return (
         <div className="mt-3 rounded shadow-sm" style={{backgroundColor: "#ffeaa7"}}>
-            <h2 className="text-center">{title}</h2>
+            <h2 className="text-center pt-2">{title}</h2>
             <Container>
-                <Row className="w-100">
+                <Row>
                     {children}
                 </Row>
             </Container>
