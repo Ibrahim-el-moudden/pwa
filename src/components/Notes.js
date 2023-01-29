@@ -1,6 +1,7 @@
 import {Card} from "react-bootstrap";
 import {Section} from "./Section";
 import {MyCard} from "./MyCard";
+import PropTypes from "prop-types";
 
 function Note(props){
     const{note} = props;
@@ -23,4 +24,9 @@ export function Notes(props){
                 {notes.map(n => <Note key={n.id} note={n} />)}
             </Section>
     )
+}
+
+Notes.prototype = {
+    title: PropTypes.string,
+    text: PropTypes.arrayOf(PropTypes.object)
 }
