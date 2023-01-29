@@ -2,6 +2,7 @@ import {Card} from "react-bootstrap";
 import {Section} from "./Section";
 import {MyCard} from "./MyCard";
 import PropTypes from "prop-types";
+import {MyButton} from "./MyButton";
 
 function Note(props){
     const{note} = props;
@@ -9,8 +10,8 @@ function Note(props){
         <MyCard>
             <Card.Title>{note.title ? note.title : "No title"}</Card.Title>
             <Card.Text>{note.text}</Card.Text>
-            <Card.Link href="#">Edit</Card.Link>
-            <Card.Link href="#">Delete</Card.Link>
+            <Card.Link><MyButton variant={"outline-warning"}>Edit</MyButton></Card.Link>
+            <Card.Link><MyButton variant={"outline-danger"}>Delete</MyButton></Card.Link>
         </MyCard>
     )
 }
