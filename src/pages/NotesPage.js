@@ -13,7 +13,7 @@ export function NotesPage(){
     console.log({values, loading, error});
     const [search, setSearch] = useState("");
 
-    const addNote = () => {
+    const addNote = async () => {
         const newNote ={
             title:"note title",
             text: "qdfqsdghsrthwdfg",
@@ -24,7 +24,8 @@ export function NotesPage(){
                 }
             }
         };
-        addDoc(collectionRef, newNote);
+        const docRef = await addDoc(collectionRef, newNote);
+        console.log("Note with title " + docRef.id + " added");
     }
 
     return(
