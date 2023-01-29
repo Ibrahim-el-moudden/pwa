@@ -1,5 +1,5 @@
 import {Notes} from "../components/Notes";
-import {collection, addDoc} from 'firebase/firestore';
+import {collection, addDoc, deleteDoc} from 'firebase/firestore';
 import {firestoreDB} from "../services/firestore";
 import {useCollectionData} from "react-firebase-hooks/firestore";
 import {firestoreConverter} from "../services/firestoreConverter";
@@ -24,8 +24,23 @@ export function NotesPage(){
                 }
             }
         };
-        const docRef = await addDoc(collectionRef, newNote);
-        console.log("Note with title " + docRef.id + " added");
+        try {
+            const docRef = await addDoc(collectionRef, newNote);
+            console.log("Note with title " + docRef.id + " added");
+        }
+        catch (e) {
+            console.log(`Note could not be added: ${e}`);
+        }
+    }
+
+    const deleteNote = async (note) =>{
+        try {
+            await deleteDoc(note.ref);
+            console.log("Document with title " + note.title + " deleted");
+        }
+        catch(e) {
+            console.log(`Document could not be deleted: ${e}`);
+        }
     }
 
     return(
@@ -38,7 +53,7 @@ export function NotesPage(){
             </div>
             <MyButton onClick={addNote} variant={"outline-dark"}>Add new note</MyButton>
 
-            <Notes title={"My notes"} notes={values && values.filter(n => n.title.toLowerCase().includes(search.toLowerCase()) ||
+            <Notes title={"My notes"} onDelete={deleteNote} notes={values && values.filter(n => n.title.toLowerCase().includes(search.toLowerCase()) ||
                 n.text.toLowerCase().includes(search.toLowerCase())) } />
         </>
     )

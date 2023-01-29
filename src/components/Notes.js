@@ -5,24 +5,24 @@ import PropTypes from "prop-types";
 import {MyButton} from "./MyButton";
 
 function Note(props){
-    const{note} = props;
+    const{note, onDelete, onEdit} = props;
     return(
         <MyCard>
             <Card.Title>{note.title ? note.title : "No title"}</Card.Title>
             <Card.Text>{note.text}</Card.Text>
-            <Card.Link><MyButton variant={"outline-warning"}>Edit</MyButton></Card.Link>
-            <Card.Link><MyButton variant={"outline-danger"}>Delete</MyButton></Card.Link>
+            <Card.Link><MyButton onClick={() => onEdit(note)} variant={"outline-warning"}>Edit</MyButton></Card.Link>
+            <Card.Link><MyButton onClick={() => onDelete(note)} variant={"outline-danger"}>Delete</MyButton></Card.Link>
         </MyCard>
     )
 }
 
 export function Notes(props){
-    const {title, notes} = props;
+    const {title, notes, onDelete, onEdit} = props;
 
     if (!notes) return;
     return(
             <Section title={title}>
-                {notes.map(n => <Note key={n.id} note={n} />)}
+                {notes.map(n => <Note key={n.id} note={n} onDelete={onDelete} onEdit={onEdit} />)}
             </Section>
     )
 }
