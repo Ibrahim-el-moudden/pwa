@@ -13,27 +13,55 @@ export function NotesPage(){
     const [values, loading, error] = useCollectionData(collectionRef);
     console.log({values, loading, error});
     const [search, setSearch] = useState("");
-    const [ noteSelected, setNoteSelected ] = useState();
+    const [noteSelected, setNoteSelected] = useState();
+    const [newNote, setNewNote] = useState();
 
-    const addNote = async () => {
-        const newNote ={
-            title:"note title",
-            text: "qdfqsdghsrthwdfg",
-            _validation: {
-                title: (e) => {
-                    if (!e) return "No title";
-                    return e;
+    // const addNote = async () => {
+    //     const newNote ={
+    //         title:"note title",
+    //         text: "teeeeeeeeeest noooooooootee",
+    //         _validation: {
+    //             title: (e) => {
+    //                 if (!e) return "No title";
+    //                 return e;
+    //             }
+    //         }
+    //     };
+    //     try {
+    //         const docRef = await addDoc(collectionRef, newNote);
+    //         console.log("Note with title " + docRef.id + " added");
+    //     }
+    //     catch (e) {
+    //         console.log(`Note could not be added: ${e}`);
+    //     }
+    // }
+
+
+    const addNote = async (note) => {
+        setNewNote(note);
+    }
+
+    const saveNewNote = async (note) => {
+
+            const data ={
+                title:note.title,
+                text: note.text,
+                _validation: {
+                    title: (e) => {
+                        if (!e) return "No title";
+                        return e;
+                    }
                 }
-            }
-        };
+            };
         try {
-            const docRef = await addDoc(collectionRef, newNote);
-            console.log("Note with title " + docRef.id + " added");
-        }
-        catch (e) {
-            console.log(`Note could not be added: ${e}`);
+            await addDoc(collectionRef, data);
+            console.log("added note: " + note.title);
+            return true;
+        } catch (e) {
+                    console.log(`Note could not be added: ${e}`);
         }
     }
+
 
     const deleteNote = async (note) =>{
         try {
@@ -45,20 +73,19 @@ export function NotesPage(){
         }
     }
 
-    const editPerson = (note) =>{
+    const editNote = (note) =>{
         setNoteSelected(note);
     }
 
     const saveNote = async (note) => {
         try {
-            console.log("saved note: " + note.title);
             await updateDoc(note.ref, { title: note.title, text: note.text });
+            console.log("saved note: " + note.title);
             return true;
         } catch (e) {
-            return false;
+            console.log(`Note could not be saved: ${e}`);
         }
     }
-
     return(
         <>
             <div className="m-3">
@@ -68,9 +95,11 @@ export function NotesPage(){
                 </Form>
             </div>
             <MyButton onClick={addNote} variant={"outline-dark"}>Add new note</MyButton>
-            <Notes title={"My notes"} onDelete={deleteNote} onEdit={editPerson} notes={values && values.filter(n => n.title.toLowerCase().includes(search.toLowerCase()) ||
-                n.text.toLowerCase().includes(search.toLowerCase())) } />
+            <Notes title={"My notes"} onDelete={deleteNote} onEdit={editNote} notes={values && values.filter(n =>
+                n.text.toLowerCase().includes(search.toLowerCase()) || n.title.toLowerCase().includes(search.toLowerCase()))} />
+            <NoteForm noteSelected={newNote} setNoteSelected={setNewNote} onSave={saveNewNote} />
             <NoteForm noteSelected={noteSelected} setNoteSelected={setNoteSelected} onSave={saveNote} />
+
         </>
     )
 }

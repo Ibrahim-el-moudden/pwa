@@ -8,7 +8,7 @@ function Note(props){
     const{note, onDelete, onEdit} = props;
     return(
         <MyCard>
-            <Card.Title>{note.title ? note.title : "No title"}</Card.Title>
+            <Card.Title>{note.title}</Card.Title>
             <Card.Text>{note.text}</Card.Text>
             <Card.Link><MyButton onClick={() => onEdit(note)} variant={"outline-warning"}>Edit</MyButton></Card.Link>
             <Card.Link><MyButton onClick={() => onDelete(note)} variant={"outline-danger"}>Delete</MyButton></Card.Link>

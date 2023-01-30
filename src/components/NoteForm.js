@@ -1,7 +1,7 @@
 import {Button, Form, Modal} from "react-bootstrap";
 
 export function NoteForm(props) {
-    const { noteSelected, setNoteSelected, onSave} = props;
+    const {noteSelected, setNoteSelected, onSave} = props;
     if (!noteSelected) return;
 
     const close = () => {
@@ -19,10 +19,10 @@ export function NoteForm(props) {
         <Modal.Body>
             <Form>
                 <Form.Label>title:</Form.Label>
-                <Form.Control value={noteSelected.title}
+                <Form.Control value={noteSelected.title ? noteSelected.title : ""}
                               onChange={(e) => setNoteSelected({...noteSelected, title: e.target.value})} />
                 <Form.Label>text:</Form.Label>
-                <Form.Control as="textarea" rows={4} value={noteSelected.text}
+                <Form.Control aria-required={true} as="textarea" rows={4} value={noteSelected.text ? noteSelected.text : ""}
                               onChange={(e) => setNoteSelected({...noteSelected, text: e.target.value})} />
             </Form>
         </Modal.Body>
@@ -30,9 +30,11 @@ export function NoteForm(props) {
             <Button variant="secondary" onClick={close}>
                 Cancel
             </Button>
-            <Button variant="primary" onClick={save}>
-                Save Changes
-            </Button>
+            {noteSelected.text ?
+                <Button variant="primary" onClick={save}>
+                    Save
+                </Button> : null}
+
         </Modal.Footer>
     </Modal>
 }
