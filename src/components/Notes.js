@@ -8,10 +8,15 @@ function Note(props){
     const{note, onDelete, onEdit} = props;
     return(
         <MyCard>
+            <Card.Body>
             <Card.Title>{note.title}</Card.Title>
             <Card.Text>{note.text}</Card.Text>
             <Card.Link><MyButton onClick={() => onEdit(note)} variant={"outline-warning"}>Edit</MyButton></Card.Link>
             <Card.Link><MyButton onClick={() => onDelete(note)} variant={"outline-danger"}>Delete</MyButton></Card.Link>
+            </Card.Body>
+            <Card.Footer>
+                <small className="text-muted">{note.date.toString()}</small>
+            </Card.Footer>
         </MyCard>
     )
 }
@@ -29,5 +34,5 @@ export function Notes(props){
 
 Notes.prototype = {
     title: PropTypes.string,
-    text: PropTypes.arrayOf(PropTypes.object)
+    notes: PropTypes.arrayOf(PropTypes.object)
 }

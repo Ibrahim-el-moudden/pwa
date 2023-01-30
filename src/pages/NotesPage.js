@@ -16,36 +16,15 @@ export function NotesPage(){
     const [noteSelected, setNoteSelected] = useState();
     const [newNote, setNewNote] = useState();
 
-    // const addNote = async () => {
-    //     const newNote ={
-    //         title:"note title",
-    //         text: "teeeeeeeeeest noooooooootee",
-    //         _validation: {
-    //             title: (e) => {
-    //                 if (!e) return "No title";
-    //                 return e;
-    //             }
-    //         }
-    //     };
-    //     try {
-    //         const docRef = await addDoc(collectionRef, newNote);
-    //         console.log("Note with title " + docRef.id + " added");
-    //     }
-    //     catch (e) {
-    //         console.log(`Note could not be added: ${e}`);
-    //     }
-    // }
-
-
     const addNote = async (note) => {
         setNewNote(note);
     }
 
     const saveNewNote = async (note) => {
-
             const data ={
-                title:note.title,
+                title: note.title,
                 text: note.text,
+                date: new Date().toISOString().slice(0, 10),
                 _validation: {
                     title: (e) => {
                         if (!e) return "No title";
@@ -79,7 +58,7 @@ export function NotesPage(){
 
     const saveNote = async (note) => {
         try {
-            await updateDoc(note.ref, { title: note.title, text: note.text });
+            await updateDoc(note.ref, { title: note.title, text: note.text, date: new Date().toISOString().slice(0, 10)});
             console.log("saved note: " + note.title);
             return true;
         } catch (e) {
