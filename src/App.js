@@ -5,6 +5,7 @@ import {NotesPage} from "./pages/NotesPage";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {Tab, Tabs} from 'react-bootstrap';
 import "./services/firestore";
+import {ToDoPage} from "./pages/ToDoPage";
 
 
 function App() {
@@ -18,10 +19,13 @@ function App() {
               <Tab eventKey="notes" title="notes">
                   <NotesPage />
               </Tab>
-              <Tab eventKey="tab2" title="tab2">
+              <Tab eventKey="tab2" title="to do">
+                  <ToDoPage />
+              </Tab>
+              <Tab eventKey="tab3" title="places to visit" disabled >
                   <></>
               </Tab>
-              <Tab eventKey="tab3" title="tab3" >
+              <Tab eventKey="tab3" title="extra..." disabled >
                   <></>
               </Tab>
           </Tabs>

@@ -3,7 +3,7 @@ import {collection, addDoc, deleteDoc, updateDoc, query, orderBy} from 'firebase
 import {firestoreDB} from "../services/firestore";
 import {useCollectionData} from "react-firebase-hooks/firestore";
 import {firestoreConverter} from "../services/firestoreConverter";
-import {Form} from "react-bootstrap";
+import {FloatingLabel, Form} from "react-bootstrap";
 import {useState} from "react";
 import {MyButton} from "../components/MyButton";
 import {NoteForm} from "../components/NoteForm";
@@ -68,11 +68,12 @@ export function NotesPage(){
     }
     return(
         <>
-            <div className="m-3">
-                <Form>
-                    <Form.Label>search</Form.Label>
-                    <Form.Control value={search} onChange={(e) => setSearch(e.target.value)} />
-                </Form>
+            <div className={"d-flex flex-row-reverse"}>
+            <FloatingLabel
+                label="Search"
+                className="mb-3">
+                <Form.Control value={search} onChange={(e) => setSearch(e.target.value)} />
+            </FloatingLabel>
             </div>
             <MyButton onClick={addNote} variant={"outline-dark"}>Add new note</MyButton>
             <Notes title={"My notes"} onDelete={deleteNote} onEdit={editNote} notes={values && values.filter(n =>
