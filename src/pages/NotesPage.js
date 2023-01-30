@@ -1,5 +1,5 @@
 import {Notes} from "../components/Notes";
-import {collection, addDoc, deleteDoc, updateDoc} from 'firebase/firestore';
+import {collection, addDoc, deleteDoc, updateDoc, query, orderBy} from 'firebase/firestore';
 import {firestoreDB} from "../services/firestore";
 import {useCollectionData} from "react-firebase-hooks/firestore";
 import {firestoreConverter} from "../services/firestoreConverter";
@@ -10,7 +10,8 @@ import {NoteForm} from "../components/NoteForm";
 
 export function NotesPage(){
     const collectionRef = collection(firestoreDB, "notes").withConverter(firestoreConverter);
-    const [values, loading, error] = useCollectionData(collectionRef);
+    const queryRef = query(collectionRef, orderBy("date", "desc"));
+    const [values, loading, error] = useCollectionData(queryRef);
     console.log({values, loading, error});
     const [search, setSearch] = useState("");
     const [noteSelected, setNoteSelected] = useState();
