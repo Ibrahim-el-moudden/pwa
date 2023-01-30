@@ -78,8 +78,8 @@ export function NotesPage(){
             <MyButton onClick={addNote} variant={"outline-dark"}>Add new note</MyButton>
             <Notes title={"My notes"} onDelete={deleteNote} onEdit={editNote} notes={values && values.filter(n =>
                 n.text.toLowerCase().includes(search.toLowerCase()) || n.title.toLowerCase().includes(search.toLowerCase()))} />
-            <NoteForm noteSelected={newNote} setNoteSelected={setNewNote} onSave={saveNewNote} />
-            <NoteForm noteSelected={noteSelected} setNoteSelected={setNoteSelected} onSave={saveNote} />
+            <NoteForm noteSelected={newNote} setNoteSelected={setNewNote} isNew={true} onSave={saveNewNote} />
+            <NoteForm noteSelected={noteSelected} setNoteSelected={setNoteSelected} isNew={false} onSave={saveNote} />
 
         </>
     )

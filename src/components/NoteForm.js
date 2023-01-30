@@ -1,7 +1,7 @@
 import {Button, Form, Modal} from "react-bootstrap";
 
 export function NoteForm(props) {
-    const {noteSelected, setNoteSelected, onSave} = props;
+    const {noteSelected, setNoteSelected, onSave, isNew} = props;
     if (!noteSelected) return;
 
     const close = () => {
@@ -14,7 +14,7 @@ export function NoteForm(props) {
 
     return <Modal show={noteSelected!==undefined} onHide={close}>
         <Modal.Header closeButton>
-            <Modal.Title>Edit note</Modal.Title>
+            <Modal.Title>{isNew ? "New note" : "Edit note"}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
             <Form>
