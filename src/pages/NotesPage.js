@@ -7,6 +7,7 @@ import {FloatingLabel, Form} from "react-bootstrap";
 import {useState} from "react";
 import {MyButton} from "../components/MyButton";
 import {NoteForm} from "../components/NoteForm";
+import {ConfirmationModal} from "../components/ConfirmationModal";
 
 export function NotesPage(){
     const collectionRef = collection(firestoreDB, "notes").withConverter(firestoreConverter);
@@ -16,6 +17,7 @@ export function NotesPage(){
     const [search, setSearch] = useState("");
     const [noteSelected, setNoteSelected] = useState();
     const [newNote, setNewNote] = useState();
+    const [noteToDelete, setNoteToDelete] = useState();
 
     const addNote = async (note) => {
         setNewNote(note);
@@ -42,6 +44,9 @@ export function NotesPage(){
         }
     }
 
+    const confirmDelete = (note) =>{
+        setNoteToDelete(note);
+    }
 
     const deleteNote = async (note) =>{
         try {
@@ -76,10 +81,11 @@ export function NotesPage(){
             </FloatingLabel>
             </div>
             <MyButton onClick={addNote} variant={"outline-dark"}>Add new note</MyButton>
-            <Notes title={"My notes"} onDelete={deleteNote} onEdit={editNote} notes={values && values.filter(n =>
+            <Notes title={"My notes"} onDelete={confirmDelete} onEdit={editNote} notes={values && values.filter(n =>
                 n.text.toLowerCase().includes(search.toLowerCase()) || n.title.toLowerCase().includes(search.toLowerCase()))} />
             <NoteForm noteSelected={newNote} setNoteSelected={setNewNote} isNew={true} onSave={saveNewNote} />
             <NoteForm noteSelected={noteSelected} setNoteSelected={setNoteSelected} isNew={false} onSave={saveNote} />
+            <ConfirmationModal noteSelected={noteToDelete} setNoteSelected={setNoteToDelete} confirm={deleteNote}  />
 
         </>
     )
